@@ -1,0 +1,12 @@
+{
+  "name": "Reverend",
+  "description": "Implements bayes theorem over gaussian priors",
+  "version":"0.0.2",
+  "author": "GSA",
+  "dependencies": {
+    "async":"*",
+    "jStat":"*",
+    "gonzales" : "1.0.7"
+  },
+  "engine": "node >= 0.4.1"
+}
