@@ -129,11 +129,11 @@ textarea {
     *text-indent: -9999px;
 }
 
-.ir:before  /*r> fizz */ {
+.ir:before {
     content: "";
     display: block;
     width: 0;
-    height: 150% /*r> (145, 160, 155) */; 
+    height: 150% /*r> (145~160~155) */; 
 }
 
 /*

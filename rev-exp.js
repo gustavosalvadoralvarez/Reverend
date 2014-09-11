@@ -1,24 +1,64 @@
-var ast = require('./rev-ast.js')
+var ast = require('./rev-ast.js');
 
-module.exports.generate = function (ast, callback){ 
+
+
+function interpret_rdata (v, rdata, callback) { 
+	var vals, block, expid; 
+	function mfn (v, i) {
+		if (typeof v === 'string' || v[0] === 's') { 
+		return v} 
+		if (vals.length) { 
+		return v.concat([['rexp', {id : expid(), val: vals.shift()}]])}
+		return v}
+	vals = rdata.substring(2).trim().split(' ');
+	expid = function () {return Math.random()*100000};
+	block =	v.map(mfn);  
+	callback(null, block);}
+
+
+
+function generate (ast, callback){ 
 		var re, fn;
 		re = new RegExp('r>');
 		fn = function (v, callback){
 				if (re.test(v.toString())) {
-					var rdata = v.reduce( function (p, c) { 
-						return  c[0] === 'comment' && re.test(c[1])
-									? c[1] 
-									: null});
-					console.log(rdata)
-					callback(null, ["exp", rdata]);
-				}
-				else {callback(null, v)}}
+					var rdata, rblock;
+					function rfn (p, c, i) { 
+						var res = c[0] === 'comment' && re.test(c[1]) 
+								? c[1] : null;
+						rblock = res 
+								? i : null;
+						return res}
+					rdata = v.reduce(rfn);
+					v.pop(rblock);
+				return interpret_rdata(v, rdata, callback);}
+				return callback(null, v)}
 		require('./rev-ast.js').cmap(ast, ['simpleselector','value'], fn, callback)} 
 
-function interpret_com (v, callback) { 
 
 
-}
+module.exports.generate = generate;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*
 module.exports.toCSS = function (exps, callback) { 
 		var g = {},
