@@ -1,8 +1,12 @@
 var gonzo = require('gonzales');
+var async = require('async');
 
-var map_ast = function (ast, ids, fn, callback) { 
+
+module.exports.cmap = function (ast, ids, fn, callback) { 
 	var tst = Array.isArray(ids) 
 			? function (v){ return ids.indexOf(v[0]) !== -1;}
+			: typeof ids === Function 
+			? ids
 			: function (v){ return v[0] === ids; };
 	function astmap(ast, tst, fn, callback) { 
 		return async.map(ast, 
@@ -12,6 +16,8 @@ var map_ast = function (ast, ids, fn, callback) {
 					else {astmap(v, tst, fn, callback);}} 
 				else {callback(null, v)}}, 
 			function (err, res){ 
-				if (err) { allback(err)}
+				if (err) {callback(err)}
 				else {callback(null, res)}})}
 	astmap(ast, tst, fn, callback);}
+
+
