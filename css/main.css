@@ -68,10 +68,10 @@ video {
  * Remove default fieldset styles.
  */
 
-fieldset /*r> .fieldset2 */{
-    border: 0 /*r> .something */;
-    margin: 0 /*r> # something */;
-    padding: 0 /*r> something else */;
+fieldset {
+    border: 0 /*r> +2 ^solid ^black */; /* >> '^' means constant in exp
+    margin: 0 /*r> +2 */;
+    padding: 0 /*r> +1 */;
 }
 
 /*
@@ -90,7 +90,7 @@ textarea {
     margin: 0.2em 0;
     background: #ccc;
     color: #000;
-    padding: 0.2em 0;
+    padding: 0.2em 0 /*r> +0.1 ^ */;
 }
 
 /* ==========================================================================
@@ -133,7 +133,7 @@ textarea {
     content: "";
     display: block;
     width: 0;
-    height: 150% /*r> (145~160~155) */; 
+    height: 150% /*r> 145~160~155 */; /*x~y~z values are tested in sucession */
 }
 
 /*
@@ -269,7 +269,7 @@ textarea {
 
     pre,
     blockquote {
-        border: 1px solid #999;
+        border: 1px solid #999 /*r> +2 ^ #888 */; /*>> ^ means keep the value in this position constant in exp */
         page-break-inside: avoid;
     }
 
@@ -299,6 +299,6 @@ textarea {
 
     h2,
     h3 {
-        page-break-after: avoid;
+        page-break-after: avoid /*r> goforit */;
     }
 }

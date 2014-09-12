@@ -20,3 +20,4 @@ function Reverend (cssFile, ops) {
 
 var r = new Reverend('./css/main.css');
 r.exp.generate(r._ast, function(){})
+console.log(JSON.stringify(r.exp.cache, null, '\t'));

@@ -22,10 +22,49 @@ function prob (counts, callback) {
 	exp = Math.exp;
 	betaln = j$lbetaln;
 	(function calc (k, t, callback) { 
-		if (k > (a1 - 1)) { return callback(null, t)} 
+		if (k > (a1 - 1)) { 
+		return callback(null, t)} 
 		t +=  exp(k * log(b1) + a2 * log(b2) - (k + a2)*log(b1 + b2) - log(k + a2) - betaln(k+1, a2)); 
-		calc(++k, t, callback);})
-	(0, 0, callback);}
+	return calc(++k, t, callback);})
+(0, 0, callback);}
+
+
+function mutate_number (val, num) { 
+	var first, sample, delta;
+	function numparse (val)  { 
+		this.res = this.res 
+				? this.res 
+				: parseInt(val.charAt(1), 10); 
+	return this.res}
+	first = val.charAt(0);
+	sample = j$.normal.sample;
+	delta = first === '+' 
+			? sample(numparse(val), numparse()*0.5)
+			: first === "-"
+			? -1*sample(numparse(val), numparse()*0.5)
+			: sample(0, parseInt(first, 10));
+return num + delta}
+
+
+
+module.exports.prob = prob; 
+module.exports.mutate_num = mutate_number
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function sum_counts (c1, c2) { 
 	return c1.map(
@@ -35,4 +74,5 @@ function sum_counts (c1, c2) {
 					return v2 + c2[i][i2];})})};
 
 function float_to_pixel (num) {return  num - num%(1/64)}
+
 
